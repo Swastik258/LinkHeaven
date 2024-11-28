@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LinkHaven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="font-sans bg-gray-900 text-white min-h-screen flex flex-col">
+    <!-- Navigation Bar -->
+    <header class="bg-gray-800/70 backdrop-blur-md border-b border-gray-700 p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-sky-400">🌐 LinkHaven</h1>
+            <nav class="flex space-x-6">
+                <a href="#" class="text-gray-300 hover:text-sky-400">Dashboard</a>
+                <a href="#" class="text-gray-300 hover:text-sky-400">Profile</a>
+                <a href="login.html" class="text-gray-300 hover:text-sky-400">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Section -->
+    <main class="flex-grow">
+        <div class="container mx-auto p-4">
+            <!-- Tabs -->
+            <div class="flex justify-center space-x-4 mb-8">
+                <button class="tab-btn bg-gray-800 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-sky-500 active" data-tab="dashboard-content">Dashboard</button>
+                <button class="tab-btn bg-gray-800 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-sky-500" data-tab="profile-content">Profile</button>
+                <button class="tab-btn bg-gray-800 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-sky-500" data-tab="links-content">Create Links</button>
+            </div>
+
+            <!-- Dashboard Tab Content -->
+            <div id="dashboard-content" class="tab-content active">
+                <h2 class="text-3xl font-bold mb-4">Welcome, User!</h2>
+                <p class="text-gray-400 mb-6">Manage your links and view their performance below.</p>
+                <a href="statistics.html" class="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 transition">View Link Statistics</a>
+            </div>
+
+            <!-- Profile Tab Content -->
+            <div id="profile-content" class="tab-content hidden">
+                <h2 class="text-3xl font-bold mb-4">Your Profile</h2>
+                <form action="#" method="POST" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-gray-300 mb-1">Full Name</label>
+                        <input type="text" id="name" name="name" value="John Doe" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-sky-500" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-300 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" value="johndoe@example.com" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-sky-500" required>
+                    </div>
+                    <div>
+                        <label for="bio" class="block text-gray-300 mb-1">Bio</label>
+                        <textarea id="bio" name="bio" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-sky-500" placeholder="Tell us about yourself"></textarea>
+                    </div>
+                    <button type="submit" class="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 transition">Update Profile</button>
+                </form>
+            </div>
+
+            <!-- Links Tab Content -->
+            <div id="links-content" class="tab-content hidden">
+                <h2 class="text-3xl font-bold mb-4">Create a New Link</h2>
+                <form id="link-form" class="space-y-4">
+                    <div>
+                        <label for="link-title" class="block text-gray-300 mb-1">Link Title</label>
+                        <input type="text" id="link-title" name="title" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-sky-500" placeholder="Enter link title" required>
+                    </div>
+                    <div>
+                        <label for="link-url" class="block text-gray-300 mb-1">Link URL</label>
+                        <input type="url" id="link-url" name="url" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-sky-500" placeholder="Enter link URL" required>
+                    </div>
+                    <button type="submit" class="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 transition">Add Link</button>
+                </form>
+
+                <h3 class="text-xl font-semibold mt-6">Your Links</h3>
+                <div id="preview" class="mt-4 border-t border-gray-700 pt-4">
+                    <p class="text-gray-400">Preview:</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <ul id="links-list" class="space-y-2">
+                            <!-- Dynamically added links will appear here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-4 text-center">
+        &copy; 2024 LinkHaven | All Rights Reserved
+    </footer>
+
+    <script>
+        // JavaScript to handle tab navigation
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                tabButtons.forEach((btn) => btn.classList.remove('active'));
+                tabContents.forEach((content) => content.classList.add('hidden'));
+
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        // Script to handle link creation and display
+        const form = document.getElementById('link-form');
+        const linksList = document.getElementById('links-list');
+
+        // Load saved links from localStorage on page load
+        const savedLinks = JSON.parse(localStorage.getItem('userLinks')) || [];
+        savedLinks.forEach(link => renderLink(link));
+
+        // Handle form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('link-title').value.trim();
+            const url = document.getElementById('link-url').value.trim();
+            
+            if (title && url) {
+                const link = { title, url };
+                renderLink(link);
+
+                // Save link to localStorage
+                savedLinks.push(link);
+                localStorage.setItem('userLinks', JSON.stringify(savedLinks));
+
+                form.reset(); // Clear the form
+            }
+        });
+
+        // Function to render a single link
+        function renderLink(link) {
+            const listItem = document.createElement('li');
+            listItem.classList.add('bg-gray-700', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
+
+            listItem.innerHTML = `
+                <div>
+                    <h4 class="font-semibold text-sky-400">${link.title}</h4>
+                    <a href="${link.url}" target="_blank" class="text-gray-300 hover:text-sky-400">${link.url}</a>
+                </div>
+            `;
+            linksList.appendChild(listItem);
+        }
+    </script>
+</body>
+
+</html>

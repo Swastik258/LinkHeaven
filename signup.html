@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - LinkHaven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #030712 0%, #1a1a2e 50%, #030712 100%);
+            background-size: 400% 400%;
+            animation: gradient-x 15s ease infinite;
+        }
+        .custom-gradient {
+            background: linear-gradient(to right, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="font-sans text-white min-h-screen flex flex-col justify-center items-center bg-gray-900 p-4">
+    <div class="w-full max-w-md bg-gray-800/90 rounded-2xl shadow-2xl backdrop-blur-lg border border-gray-700/50 overflow-hidden animate-float">
+        <div class="p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold custom-gradient mb-3">LinkHaven</h1>
+                <p class="text-gray-400 text-sm">Create your account and start organizing</p>
+            </div>
+
+            <form id="signup-form" class="space-y-6">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-user text-gray-400"></i>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Full Name" 
+                        required 
+                        class="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 text-white placeholder-gray-500"
+                    >
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="Email Address" 
+                        required 
+                        class="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 text-white placeholder-gray-500"
+                    >
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Password" 
+                        required 
+                        class="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 text-white placeholder-gray-500"
+                    >
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input 
+                        type="password" 
+                        id="confirm-password" 
+                        name="confirm-password" 
+                        placeholder="Confirm Password" 
+                        required 
+                        class="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 text-white placeholder-gray-500"
+                    >
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="w-full py-3 bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold rounded-xl 
+                           hover:from-sky-600 hover:to-emerald-600 transition-all duration-300 
+                           transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                >
+                    Create Account
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <div class="flex items-center justify-center space-x-4 mb-4">
+                    <div class="h-px w-1/4 bg-gray-700"></div>
+                    <span class="text-gray-400 text-sm">Or continue with</span>
+                    <div class="h-px w-1/4 bg-gray-700"></div>
+                </div>
+
+                <div id="g_id_onload"
+                data-client_id="830755299641-e04htsg54s8q7jpbq2cis9jc94vlbjeu.apps.googleusercontent.com"
+                data-context="signup"
+                data-ux_mode="popup"
+                data-login_uri="http://localhost:3000/dashboard.html"
+                data-auto_prompt="false">
+           </div>
+           <div class="g_id_signin" 
+                data-type="standard" 
+                data-shape="rectangular" 
+                data-theme="outline" 
+                data-text="sign_in_with" 
+                data-size="large" 
+                data-logo_alignment="left">
+           </div>
+           
+            </div>
+
+            <p class="mt-6 text-gray-400 text-sm text-center">
+                Already have an account? 
+                <a href="login.html" class="text-sky-400 hover:underline font-semibold">
+                    Log in
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script src="signup.js"></script>
+</body>
+</html>
